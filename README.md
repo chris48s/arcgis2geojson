@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/chris48s/arcgis2geojson.svg?branch=master)](https://travis-ci.org/chris48s/arcgis2geojson)
+[![Coverage Status](https://coveralls.io/repos/github/chris48s/arcgis2geojson/badge.svg?branch=master)](https://coveralls.io/github/chris48s/arcgis2geojson?branch=master)
+
 # arcgis2geojson.py
 A Python library for converting ArcGIS JSON to GeoJSON: A partial port of ESRI's [arcgis-to-geojson-utils](https://github.com/Esri/arcgis-to-geojson-utils/).
 
