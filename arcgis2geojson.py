@@ -224,4 +224,7 @@ def arcgis2geojson(arcgis, idAttribute=None):
         else:
             geojson['properties'] = None
 
+    if 'geometry' in geojson and not(geojson['geometry']):
+        geojson['geometry'] = None
+
     return geojson
