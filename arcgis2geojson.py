@@ -8,6 +8,8 @@ Ported to Python in 2016 by Chris Shaw.
 arcgis2geojson is made available under the MIT License.
 """
 
+import numbers
+
 
 def pointsEqual(a, b):
     """
@@ -184,7 +186,8 @@ def arcgis2geojson(arcgis, idAttribute=None):
 
     geojson = {}
 
-    if 'x' in arcgis and 'y' in arcgis:
+    if 'x' in arcgis and isinstance(arcgis['x'], numbers.Number) and\
+        'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
         geojson['type'] = 'Point'
         geojson['coordinates'] = [arcgis['x'], arcgis['y']]
 
