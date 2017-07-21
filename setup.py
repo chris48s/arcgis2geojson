@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='arcgis2geojson',
-    version='1.0.0',
+    version='1.0.1',
     author="chris48s",
     license="MIT",
     url="https://github.com/chris48s/arcgis2geojson/",
