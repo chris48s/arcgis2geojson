@@ -40,6 +40,19 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         self.assertEqual(output['coordinates'], [0, 0])
         self.assertEqual(output['type'], 'Point')
 
+    def test_invalid_geometry(self):
+        input = {
+            'geometry': {
+                'x': 'NaN',
+                'y': 'NaN'
+            },
+            'attributes': {
+                'foo': 'bar'
+            }
+        }
+        output = arcgis2geojson(input)
+        self.assertIsNone(output['geometry'])
+
     def test_convert_arcgis_polyline_to_geojson_linestring(self):
         input = {
             'paths': [
