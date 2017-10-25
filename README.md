@@ -6,7 +6,7 @@ A Python library for converting ArcGIS JSON to GeoJSON: A partial port of ESRI's
 
 ## Installation
 ```
-pip install git+https://github.com/chris48s/arcgis2geojson.git
+pip install arcgis2geojson
 ```
 
 ## Platform Support

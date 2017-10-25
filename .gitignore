@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .coverage
 build/
+dist/
+MANIFEST
+README.rst
