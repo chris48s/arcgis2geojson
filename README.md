@@ -10,7 +10,7 @@ pip install arcgis2geojson
 ```
 
 ## Platform Support
-arcgis2geojson is tested under python versions 2.7, 3.2, 3.3, 3.4 and 3.5
+arcgis2geojson is tested under python versions 2.7, 3.2, 3.3, 3.4, 3.5 and 3.6
 
 ## Usage
 
