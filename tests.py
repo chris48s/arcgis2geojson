@@ -28,6 +28,19 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         self.assertEqual(output['coordinates'], [-66.796875, 20.0390625])
         self.assertEqual(output['type'], 'Point')
 
+    def test_convert_arcgis_point_with_z_value_to_geojson_point(self):
+        input = {
+            'x': -66.796875,
+            'y': 20.0390625,
+            'z': 1,
+            'spatialReference': {
+                'wkid': 4326
+            }
+        }
+        output = arcgis2geojson(input)
+        self.assertEqual(output['coordinates'], [-66.796875, 20.0390625, 1])
+        self.assertEqual(output['type'], 'Point')
+
     def test_convert_arcgis_null_island_to_geojson_point(self):
         input = {
             'x': 0,
@@ -74,6 +87,27 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         ])
         self.assertEqual(output['type'], 'LineString')
 
+    def test_convert_arcgis_polyline_with_z_values_to_geojson_linestring(self):
+        input = {
+            'paths': [
+                [
+                    [6.6796875, 47.8125, 1],
+                    [-65.390625, 52.3828125, 1],
+                    [-52.3828125, 42.5390625, 1]
+                ]
+            ],
+            'spatialReference': {
+                'wkid': 4326
+            }
+        }
+        output = arcgis2geojson(input)
+        self.assertEqual(output['coordinates'], [
+            [6.6796875, 47.8125, 1],
+            [-65.390625, 52.3828125, 1],
+            [-52.3828125, 42.5390625, 1]
+        ])
+        self.assertEqual(output['type'], 'LineString')
+
     def test_convert_arcgis_polygon_to_geojson_polygon(self):
         input = {
             'rings': [
@@ -95,6 +129,31 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
                 [56.953125, 33.75],
                 [21.796875, 36.5625],
                 [41.8359375, 71.015625]
+            ]
+        ])
+        self.assertEqual(output['type'], 'Polygon')
+
+    def test_convert_arcgis_polygon_with_z_values_to_geojson_polygon(self):
+        input = {
+            'rings': [
+                [
+                    [41.8359375, 71.015625, 1],
+                    [56.953125, 33.75, 1],
+                    [21.796875, 36.5625, 1],
+                    [41.8359375, 71.015625, 1]
+                ]
+            ],
+            'spatialReference': {
+                'wkid': 4326
+            }
+        }
+        output = arcgis2geojson(input)
+        self.assertEqual(output['coordinates'], [
+            [
+                [41.8359375, 71.015625, 1],
+                [56.953125, 33.75, 1],
+                [21.796875, 36.5625, 1],
+                [41.8359375, 71.015625, 1]
             ]
         ])
         self.assertEqual(output['type'], 'Polygon')

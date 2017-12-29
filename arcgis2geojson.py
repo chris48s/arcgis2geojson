@@ -190,6 +190,8 @@ def arcgis2geojson(arcgis, idAttribute=None):
         'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
         geojson['type'] = 'Point'
         geojson['coordinates'] = [arcgis['x'], arcgis['y']]
+        if 'z' in arcgis and isinstance(arcgis['z'], numbers.Number):
+            geojson['coordinates'].append(arcgis['z'])
 
     if 'points' in arcgis:
         geojson['type'] = 'MultiPoint'
