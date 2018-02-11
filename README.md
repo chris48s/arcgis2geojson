@@ -14,7 +14,7 @@ pip install arcgis2geojson
 
 ## Usage
 
-```
+```python
 >>> input = {
 ...     'attributes': {'OBJECTID': 123},
 ...     'geometry': {   'rings': [   [   [41.8359375, 71.015625],
