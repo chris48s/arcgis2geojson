@@ -646,6 +646,58 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         self.assertEqual(output['geometry'], None)
         self.assertEqual(output['properties']['foo'], 'bar')
 
+    def test_custom_id_field(self):
+        input = {
+            'x': -66.796875,
+            'y': 20.0390625,
+            'spatialReference': {
+                'wkid': 4326
+            },
+            'attributes': {
+                'OBJECTID': 123,
+                'some_field': 456,
+            }
+        }
+
+        output = arcgis2geojson(input, 'some_field')
+        self.assertEqual(456, output['id'])
+
+    def test_id_must_be_string_or_number(self):
+        input = {
+            'x': -66.796875,
+            'y': 20.0390625,
+            'spatialReference': {
+                'wkid': 4326
+            },
+            'attributes': {
+                'OBJECTID': 123,
+                'some_field': {
+                    'not a number': 'or a string'
+                }
+            }
+        }
+
+        output = arcgis2geojson(input, 'some_field')
+
+        # 'some_field' isn't a number or string - fall back to OBJECTID
+        self.assertEqual(123, output['id'])
+
+    def test_null_id_not_allowed(self):
+        input = {
+            'x': -66.796875,
+            'y': 20.0390625,
+            'spatialReference': {
+                'wkid': 4326
+            },
+            # no 'OBJECTID' or 'FID' in 'attributes'
+            'attributes': {
+                'foo': 'bar'
+            }
+        }
+
+        output = arcgis2geojson(input)
+        self.assertTrue('id' not in output)
+
     def test_do_not_modify_original_arcgis_geometry(self):
         input = {
             'geometry': {

@@ -9,6 +9,7 @@ arcgis2geojson is made available under the MIT License.
 """
 
 import numbers
+import six
 
 
 def pointsEqual(a, b):
@@ -179,6 +180,16 @@ def convertRingsToGeoJSON(rings):
         }
 
 
+def getId(attributes, idAttribute=None):
+    keys = [idAttribute, 'OBJECTID', 'FID'] if idAttribute else ['OBJECTID', 'FID']
+    for key in keys:
+        if key in attributes and\
+            (isinstance(attributes[key], numbers.Number) or
+            isinstance(attributes[key], six.string_types)):
+            return attributes[key]
+    raise KeyError('No valid id attribute found')
+
+
 def arcgis2geojson(arcgis, idAttribute=None):
     """
     Convert an ArcGIS JSON object to a GeoJSON object
@@ -217,12 +228,11 @@ def arcgis2geojson(arcgis, idAttribute=None):
 
         if 'attributes' in arcgis:
             geojson['properties'] = arcgis['attributes']
-            if idAttribute in arcgis['attributes']:
-                geojson['id'] = arcgis['attributes'][idAttribute]
-            elif 'OBJECTID' in arcgis['attributes']:
-                geojson['id'] = arcgis['attributes']['OBJECTID']
-            elif 'FID' in arcgis['attributes']:
-                geojson['id'] = arcgis['attributes']['FID']
+            try:
+                geojson['id'] = getId(arcgis['attributes'], idAttribute)
+            except KeyError:
+                # don't set an id
+                pass
         else:
             geojson['properties'] = None
 
