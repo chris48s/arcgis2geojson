@@ -118,10 +118,10 @@ def convertRingsToGeoJSON(rings):
 
         # is this ring an outer ring? is it clockwise?
         if ringIsClockwise(ring):
-            polygon = [ring]
-            outerRings.append(polygon)  # push to outer rings
+            polygon = [ring[::-1]]
+            outerRings.append(polygon)  # wind outer rings counterclockwise for RFC 7946 compliance
         else:
-            holes.append(ring)  # counterclockwise push to holes
+            holes.append(ring[::-1])  # wind inner rings clockwise for RFC 7946 compliance
 
     uncontainedHoles = []
 
