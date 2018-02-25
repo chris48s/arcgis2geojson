@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import unittest
+from copy import deepcopy
 from arcgis2geojson import arcgis2geojson
 
 
@@ -718,7 +719,7 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
             }
         }
 
-        expected = input
+        expected = deepcopy(input)
         output = arcgis2geojson(input)
 
         self.assertEqual(input, expected)
