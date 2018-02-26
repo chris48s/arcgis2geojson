@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import unittest
 from copy import deepcopy
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 from arcgis2geojson import arcgis2geojson
 
 
@@ -698,6 +702,24 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
 
         output = arcgis2geojson(input)
         self.assertTrue('id' not in output)
+
+    @patch('arcgis2geojson.logging')
+    def test_warning_if_crs_not_4326(self, mock_logging):
+        input = {
+            'x': 392917.31,
+            'y': 298521.34,
+            'spatialReference': {
+                'wkid': 27700
+            }
+        }
+
+        output = arcgis2geojson(input)
+
+        mock_logging.warning.assert_called_with(
+            "Object converted in non-standard crs - {'wkid': 27700}")
+        self.assertTrue('crs' not in output)
+        self.assertEqual(output['coordinates'], [392917.31, 298521.34])
+
 
     def test_do_not_modify_original_arcgis_geometry(self):
         input = {

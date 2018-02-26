@@ -8,6 +8,7 @@ Ported to Python in 2016 by Chris Shaw.
 arcgis2geojson is made available under the MIT License.
 """
 
+import logging
 import numbers
 import six
 
@@ -238,5 +239,13 @@ def arcgis2geojson(arcgis, idAttribute=None):
 
     if 'geometry' in geojson and not(geojson['geometry']):
         geojson['geometry'] = None
+
+    if 'spatialReference' in arcgis and\
+        'wkid' in arcgis['spatialReference'] and\
+        arcgis['spatialReference']['wkid'] != 4326:
+        logging.warning(
+            'Object converted in non-standard crs - ' +\
+            str(arcgis['spatialReference'])
+        )
 
     return geojson
