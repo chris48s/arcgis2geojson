@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 import io
 import os
 
@@ -14,10 +14,11 @@ setup(
     name='arcgis2geojson',
     description='A Python library for converting ArcGIS JSON to GeoJSON',
     long_description=_get_description(),
-    version='1.1.0',
+    version='1.1.1',
     author="chris48s",
     license="MIT",
     url="https://github.com/chris48s/arcgis2geojson/",
+    install_requires=['six'],
     py_modules=['arcgis2geojson'],
     classifiers=[
         'License :: OSI Approved :: MIT License',
