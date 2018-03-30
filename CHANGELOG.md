@@ -1,5 +1,12 @@
 # Changelog
 
+## :package: [1.2.0](https://pypi.python.org/pypi/arcgis2geojson/1.2.0) - 2018-03-30
+
+* Convert ArcGIS `features` array to GeoJSON `FeatureCollection`
+* Convert dict to dict or json to json:
+    * `arcgis2geojson("{}")` returns string
+    * `arcgis2geojson({})` returns dict
+
 ## :package: [1.1.1](https://pypi.python.org/pypi/arcgis2geojson/1.1.1) - 2018-02-28
 
 Bugfix: Require `six` in setup.py
