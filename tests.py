@@ -512,6 +512,142 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         ])
         self.assertEqual(output['geometry']['type'], 'Polygon')
 
+    def test_convert_arcgis_feature_array_to_geojson_featurecollection(self):
+        input = {
+            "displayFieldName": "prop0",
+            "fieldAliases": {"prop0": "prop0"},
+            "geometryType": "esriGeometryPolygon",
+            "fields": [
+                {
+                    "length": 20,
+                    "name": "prop0",
+                    "type": "esriFieldTypeString",
+                    "alias": "prop0"
+                },
+                {
+                    "name": "OBJECTID",
+                    "type": "esriFieldTypeOID",
+                    "alias": "OBJECTID"
+                },
+                {
+                    "name": "FID",
+                    "type": "esriFieldTypeDouble",
+                    "alias": "FID"
+                }
+            ],
+            "spatialReference": {"wkid": 4326},
+            "features": [
+                {
+                    "geometry": {
+                        "x": 102,
+                        "y": 0.5
+                    },
+                    "attributes": {
+                        "prop0": "value0",
+                        "FID": 0,
+                        "OBJECTID": 0
+                    }
+                },
+                {
+                    "geometry": {
+                        "paths": [
+                            [
+                                [102, 0],
+                                [103, 1],
+                                [104, 0],
+                                [105, 1]
+                            ]
+                        ]
+                    },
+                    "attributes": {
+                        "prop0": None,
+                        "FID": 1,
+                        "OBJECTID": None
+                    }
+                },
+                {
+                    "geometry": {
+                        "rings": [
+                            [
+                                [100, 0],
+                                [100, 1],
+                                [101, 1],
+                                [101, 0],
+                                [100, 0]
+                            ]
+                        ]
+                    },
+                    "attributes": {
+                        "prop0": None,
+                        "FID": 30.25,
+                        "OBJECTID": 2
+                    }
+                }
+            ]
+        }
+
+        output = arcgis2geojson(input, 'prop0')
+        self.assertEqual(output, {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "prop0": "value0",
+                        "OBJECTID": 0,
+                        "FID": 0
+                    },
+                    "id": "value0",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            102.0,
+                            0.5
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "prop0": None,
+                        "OBJECTID": None,
+                        "FID": 1
+                    },
+                    "id": 1,
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [102.0, 0.0],
+                            [103.0, 1.0],
+                            [104.0, 0.0],
+                            [105.0, 1.0]
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "prop0": None,
+                        "OBJECTID": 2,
+                        "FID": 30.25
+                    },
+                    "id": 2,
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [100.0, 0.0],
+                                [101.0, 0.0],
+                                [101.0, 1.0],
+                                [100.0, 1.0],
+                                [100.0, 0.0]
+                            ]
+                        ]
+                    }
+                }
+            ]
+        })
+
     def test_parse_arcgis_feature_with_objectid(self):
         input = {
             'geometry': {

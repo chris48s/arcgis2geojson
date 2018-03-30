@@ -198,6 +198,12 @@ def arcgis2geojson(arcgis, idAttribute=None):
 
     geojson = {}
 
+    if 'features' in arcgis and arcgis['features']:
+        geojson['type'] = 'FeatureCollection'
+        geojson['features'] = []
+        for feature in arcgis['features']:
+            geojson['features'].append(arcgis2geojson(feature, idAttribute))
+
     if 'x' in arcgis and isinstance(arcgis['x'], numbers.Number) and\
         'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
         geojson['type'] = 'Point'
