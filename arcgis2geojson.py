@@ -8,6 +8,7 @@ Ported to Python in 2016 by Chris Shaw.
 arcgis2geojson is made available under the MIT License.
 """
 
+import json
 import logging
 import numbers
 import six
@@ -192,6 +193,13 @@ def getId(attributes, idAttribute=None):
 
 
 def arcgis2geojson(arcgis, idAttribute=None):
+    if isinstance(arcgis, six.string_types):
+        return json.dumps(convert(json.loads(arcgis), idAttribute))
+    else:
+        return convert(arcgis, idAttribute)
+
+
+def convert(arcgis, idAttribute=None):
     """
     Convert an ArcGIS JSON object to a GeoJSON object
     """
@@ -202,7 +210,7 @@ def arcgis2geojson(arcgis, idAttribute=None):
         geojson['type'] = 'FeatureCollection'
         geojson['features'] = []
         for feature in arcgis['features']:
-            geojson['features'].append(arcgis2geojson(feature, idAttribute))
+            geojson['features'].append(convert(feature, idAttribute))
 
     if 'x' in arcgis and isinstance(arcgis['x'], numbers.Number) and\
         'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
@@ -229,7 +237,7 @@ def arcgis2geojson(arcgis, idAttribute=None):
     if 'geometry' in arcgis or 'attributes' in arcgis:
         geojson['type'] = 'Feature'
         if 'geometry' in arcgis:
-            geojson['geometry'] = arcgis2geojson(arcgis['geometry'])
+            geojson['geometry'] = convert(arcgis['geometry'])
         else:
             geojson['geometry'] = None
 

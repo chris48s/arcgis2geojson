@@ -5,6 +5,8 @@ try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
+import json
+import six
 from arcgis2geojson import arcgis2geojson
 
 
@@ -30,6 +32,20 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
             }
         }
         output = arcgis2geojson(input)
+        self.assertEqual(output['coordinates'], [-66.796875, 20.0390625])
+        self.assertEqual(output['type'], 'Point')
+
+    def test_convert_string_json_to_string_json(self):
+        input = json.dumps({
+            'x': -66.796875,
+            'y': 20.0390625,
+            'spatialReference': {
+                'wkid': 4326
+            }
+        })
+        output = arcgis2geojson(input)
+        self.assertIsInstance(output, six.string_types)
+        output = json.loads(output)
         self.assertEqual(output['coordinates'], [-66.796875, 20.0390625])
         self.assertEqual(output['type'], 'Point')
 
