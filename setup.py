@@ -20,6 +20,13 @@ setup(
     license="MIT",
     url="https://github.com/chris48s/arcgis2geojson/",
     install_requires=['six'],
+    extras_require={
+        'testing': [
+            'python-coveralls',
+            'nose',
+            'mock',
+        ]
+    },
     py_modules=['arcgis2geojson'],
     classifiers=[
         'License :: OSI Approved :: MIT License',
