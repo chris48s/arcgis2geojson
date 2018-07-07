@@ -1,5 +1,9 @@
 # Changelog
 
+## :package: [1.3.0](https://pypi.python.org/pypi/arcgis2geojson/1.3.0) - 2018-07-07
+
+* Convert ArcGIS `Extent` to GeoJSON `Polygon`
+
 ## :package: [1.2.0](https://pypi.python.org/pypi/arcgis2geojson/1.2.0) - 2018-03-30
 
 * Convert ArcGIS `features` array to GeoJSON `FeatureCollection`
