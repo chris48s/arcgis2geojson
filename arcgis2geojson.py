@@ -234,6 +234,19 @@ def convert(arcgis, idAttribute=None):
     if 'rings' in arcgis:
         geojson = convertRingsToGeoJSON(arcgis['rings'])
 
+    if 'xmin' in arcgis and isinstance(arcgis['xmin'], numbers.Number) and\
+            'ymin' in arcgis and isinstance(arcgis['ymin'], numbers.Number) and\
+            'xmax' in arcgis and isinstance(arcgis['xmax'], numbers.Number) and\
+            'ymax' in arcgis and isinstance(arcgis['ymax'], numbers.Number):
+        geojson['type'] = 'Polygon'
+        geojson['coordinates'] = [[
+            [arcgis['xmax'], arcgis['ymax']],
+            [arcgis['xmin'], arcgis['ymax']],
+            [arcgis['xmin'], arcgis['ymin']],
+            [arcgis['xmax'], arcgis['ymin']],
+            [arcgis['xmax'], arcgis['ymax']]
+        ]]
+
     if 'geometry' in arcgis or 'attributes' in arcgis:
         geojson['type'] = 'Feature'
         if 'geometry' in arcgis:

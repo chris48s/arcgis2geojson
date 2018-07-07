@@ -898,6 +898,27 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
 
         self.assertEqual(input, expected)
 
+    def test_convert_arcgis_extent_to_geojson_polygon(self):
+        input = {
+            'xmax': -35.5078125,
+            'ymax': 41.244772343082076,
+            'xmin': -13.7109375,
+            'ymin': 54.36775852406841,
+            'spatialReference': {
+                'wkid': 4326
+            }
+        }
+        output = arcgis2geojson(input)
+        self.assertEqual(output['coordinates'], [
+            [
+                [-35.5078125, 41.244772343082076],
+                [-13.7109375, 41.244772343082076],
+                [-13.7109375, 54.36775852406841],
+                [-35.5078125, 54.36775852406841],
+                [-35.5078125, 41.244772343082076]
+            ]
+        ])
+
 
 if __name__ == '__main__':
     unittest.main()
