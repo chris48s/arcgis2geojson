@@ -185,9 +185,9 @@ def convertRingsToGeoJSON(rings):
 def getId(attributes, idAttribute=None):
     keys = [idAttribute, 'OBJECTID', 'FID'] if idAttribute else ['OBJECTID', 'FID']
     for key in keys:
-        if key in attributes and\
-            (isinstance(attributes[key], numbers.Number) or
-            isinstance(attributes[key], six.string_types)):
+        if key in attributes and (
+                isinstance(attributes[key], numbers.Number) or
+                isinstance(attributes[key], six.string_types)):
             return attributes[key]
     raise KeyError('No valid id attribute found')
 
@@ -213,7 +213,7 @@ def convert(arcgis, idAttribute=None):
             geojson['features'].append(convert(feature, idAttribute))
 
     if 'x' in arcgis and isinstance(arcgis['x'], numbers.Number) and\
-        'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
+            'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
         geojson['type'] = 'Point'
         geojson['coordinates'] = [arcgis['x'], arcgis['y']]
         if 'z' in arcgis and isinstance(arcgis['z'], numbers.Number):
@@ -268,8 +268,8 @@ def convert(arcgis, idAttribute=None):
         geojson['geometry'] = None
 
     if 'spatialReference' in arcgis and\
-        'wkid' in arcgis['spatialReference'] and\
-        arcgis['spatialReference']['wkid'] != 4326:
+            'wkid' in arcgis['spatialReference'] and\
+            arcgis['spatialReference']['wkid'] != 4326:
         logging.warning(
             'Object converted in non-standard crs - ' +\
             str(arcgis['spatialReference'])
