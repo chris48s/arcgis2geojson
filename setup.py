@@ -15,7 +15,7 @@ setup(
     description='A Python library for converting ArcGIS JSON to GeoJSON',
     long_description=_get_description(),
     long_description_content_type="text/markdown",
-    version='1.2.0',
+    version='1.3.0',
     author="chris48s",
     license="MIT",
     url="https://github.com/chris48s/arcgis2geojson/",
