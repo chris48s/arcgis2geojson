@@ -1,5 +1,9 @@
 # Changelog
 
+## :package: [1.4.0](https://pypi.python.org/pypi/arcgis2geojson/1.4.0) - 2018-11-09
+
+* Support Python 3.7, drop testing on 3.2, 3.2
+
 ## :package: [1.3.0](https://pypi.python.org/pypi/arcgis2geojson/1.3.0) - 2018-07-07
 
 * Convert ArcGIS `Extent` to GeoJSON `Polygon`
