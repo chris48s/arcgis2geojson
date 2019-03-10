@@ -23,7 +23,6 @@ setup(
     extras_require={
         'testing': [
             'python-coveralls',
-            'nose',
             'mock',
         ]
     },
