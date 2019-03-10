@@ -15,7 +15,7 @@ setup(
     description='A Python library for converting ArcGIS JSON to GeoJSON',
     long_description=_get_description(),
     long_description_content_type="text/markdown",
-    version='1.4.0',
+    version='1.5.0',
     author="chris48s",
     license="MIT",
     url="https://github.com/chris48s/arcgis2geojson/",
@@ -28,6 +28,11 @@ setup(
         ]
     },
     py_modules=['arcgis2geojson'],
+    entry_points={
+        'console_scripts': [
+            'arcgis2geojson = arcgis2geojson:main'
+        ]
+    },
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',

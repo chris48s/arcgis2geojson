@@ -8,10 +8,12 @@ Ported to Python in 2016 by Chris Shaw.
 arcgis2geojson is made available under the MIT License.
 """
 
+import argparse
 import json
 import logging
 import numbers
 import six
+import sys
 
 
 def pointsEqual(a, b):
@@ -276,3 +278,29 @@ def convert(arcgis, idAttribute=None):
         )
 
     return geojson
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Convert ArcGIS JSON to GeoJSON')
+    parser.add_argument(
+        'file',
+        nargs='?',
+        help='Input file, if empty stdin is used',
+        type=argparse.FileType('r'),
+        default=sys.stdin
+    )
+    parser.add_argument(
+        '--id',
+        action='store',
+        help='Attribute to use as feature ID',
+        required=False,
+        default=None
+    )
+    args = parser.parse_args()
+
+    sys.stdout.write(six.u(arcgis2geojson(args.file.read(), idAttribute=args.id)))
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

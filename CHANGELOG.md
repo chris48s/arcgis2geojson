@@ -1,5 +1,9 @@
 # Changelog
 
+## :package: [1.5.0](https://pypi.python.org/pypi/arcgis2geojson/1.5.0) - 2019-03-10
+
+* Add CLI wrapper
+
 ## :package: [1.4.0](https://pypi.python.org/pypi/arcgis2geojson/1.4.0) - 2018-11-09
 
 * Support Python 3.7, drop testing on 3.2, 3.3

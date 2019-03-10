@@ -14,6 +14,8 @@ pip install arcgis2geojson
 
 ## Usage
 
+### As a Library
+
 ```python
 >>> input = {
 ...     'attributes': {'OBJECTID': 123},
@@ -36,6 +38,17 @@ pip install arcgis2geojson
     'properties': {'OBJECTID': 123},
     'type': 'Feature'}
 ```
+
+### On the Console
+
+```sh
+# convert ArcGIS json file to GeoJOSN file
+$ arcgis2geojson arcgis.json > geo.json
+
+# fetch ArcGIS json from the web and convert to GeoJSON
+$ curl "https://myserver.com/arcgis.json" | arcgis2geojson
+```
+
 
 ## Licensing
 

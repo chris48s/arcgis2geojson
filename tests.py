@@ -1,13 +1,17 @@
 #!/usr/bin/env python
-import unittest
-from copy import deepcopy
+
 try:
     from unittest.mock import patch
 except ImportError:
     from mock import patch
+
+from copy import deepcopy
 import json
 import six
-from arcgis2geojson import arcgis2geojson
+import sys
+import unittest
+
+from arcgis2geojson import arcgis2geojson, main
 
 
 """
@@ -919,6 +923,20 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
             ]
         ])
 
+    def test_cli(self):
+        stdout = sys.stdout
+        sys.stdout = six.StringIO()
+
+        input = u'{ "x": -66.796875, "y": 20.0390625, "spatialReference": { "wkid": 4326 } }'
+        stdin = sys.stdin
+        sys.stdin = six.StringIO(input)
+
+        main()
+        output = sys.stdout.getvalue().strip()
+        self.assertEqual(output, arcgis2geojson(input))
+
+        sys.stdout = stdout
+        sys.stdin = stdin
 
 if __name__ == '__main__':
     unittest.main()
