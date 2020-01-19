@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "arcgis2geojson"
+version = "2.0.0"
+description = "A Python library for converting ArcGIS JSON to GeoJSON"
+authors = ["chris48s"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/chris48s/arcgis2geojson"
+homepage = "https://github.com/chris48s/arcgis2geojson"
+
+[tool.poetry.dependencies]
+python = "^3.4"
+
+[tool.poetry.dev-dependencies]
+coveralls = "^1.10.0"
+
+[build-system]
+requires = ["poetry>=1.0.2"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+arcgis2geojson = 'arcgis2geojson:main'

@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 
-try:
-    from unittest.mock import patch
-except ImportError:
-    from mock import patch
-
-from copy import deepcopy
+import io
 import json
-import six
 import sys
 import unittest
+from copy import deepcopy
+from unittest.mock import patch
 
 from arcgis2geojson import arcgis2geojson, main
 
@@ -48,7 +44,7 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
             }
         })
         output = arcgis2geojson(input)
-        self.assertIsInstance(output, six.string_types)
+        self.assertIsInstance(output, str)
         output = json.loads(output)
         self.assertEqual(output['coordinates'], [-66.796875, 20.0390625])
         self.assertEqual(output['type'], 'Point')
@@ -925,11 +921,11 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
 
     def test_cli(self):
         stdout = sys.stdout
-        sys.stdout = six.StringIO()
+        sys.stdout = io.StringIO()
 
         input = u'{ "x": -66.796875, "y": 20.0390625, "spatialReference": { "wkid": 4326 } }'
         stdin = sys.stdin
-        sys.stdin = six.StringIO(input)
+        sys.stdin = io.StringIO(input)
 
         main()
         output = sys.stdout.getvalue().strip()

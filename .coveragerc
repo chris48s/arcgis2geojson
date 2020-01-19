@@ -1,7 +1,0 @@
-[report]
-omit =
-    */python?.?/*
-    */site-packages/nose/*
-    *__init__*
-    ./tests.py
-    ./setup.py

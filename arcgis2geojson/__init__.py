@@ -12,7 +12,6 @@ import argparse
 import json
 import logging
 import numbers
-import six
 import sys
 
 
@@ -189,13 +188,13 @@ def getId(attributes, idAttribute=None):
     for key in keys:
         if key in attributes and (
                 isinstance(attributes[key], numbers.Number) or
-                isinstance(attributes[key], six.string_types)):
+                isinstance(attributes[key], str)):
             return attributes[key]
     raise KeyError('No valid id attribute found')
 
 
 def arcgis2geojson(arcgis, idAttribute=None):
-    if isinstance(arcgis, six.string_types):
+    if isinstance(arcgis, str):
         return json.dumps(convert(json.loads(arcgis), idAttribute))
     else:
         return convert(arcgis, idAttribute)
@@ -298,7 +297,7 @@ def main():
     )
     args = parser.parse_args()
 
-    sys.stdout.write(six.u(arcgis2geojson(args.file.read(), idAttribute=args.id)))
+    sys.stdout.write(arcgis2geojson(args.file.read(), idAttribute=args.id))
     return 0
 
 

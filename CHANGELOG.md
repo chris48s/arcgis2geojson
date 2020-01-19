@@ -1,5 +1,9 @@
 # Changelog
 
+## :package: [2.0.0](https://pypi.python.org/pypi/arcgis2geojson/2.0.0) - 2020-01-19
+
+* Breaking: Drop python 2.7 compatibility
+
 ## :package: [1.5.0](https://pypi.python.org/pypi/arcgis2geojson/1.5.0) - 2019-03-10
 
 * Add CLI wrapper
