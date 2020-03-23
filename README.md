@@ -16,7 +16,32 @@ pip install arcgis2geojson
 
 ### As a Library
 
-```python
+Convert an ArcGIS JSON string to a GeoJSON string
+
+```py
+>>> from arcgis2geojson import arcgis2geojson
+
+>>> input = """{
+...     "attributes": {"OBJECTID": 123},
+...     "geometry": {   "rings": [   [   [41.8359375, 71.015625],
+...                                      [56.953125, 33.75],
+...                                      [21.796875, 36.5625],
+...                                      [41.8359375, 71.015625]]],
+...                     "spatialReference": {"wkid": 4326}}}"""
+>>> output = arcgis2geojson(input)
+
+>>> output
+'{"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [[[41.8359375, 71.015625], [21.796875, 36.5625], [56.953125, 33.75], [41.8359375, 71.015625]]]}, "properties": {"OBJECTID": 123}, "id": 123}'
+
+>>> type(output)
+<class 'str'>
+```
+
+Convert a python dict to a python dict
+
+```py
+>>> from arcgis2geojson import arcgis2geojson
+
 >>> input = {
 ...     'attributes': {'OBJECTID': 123},
 ...     'geometry': {   'rings': [   [   [41.8359375, 71.015625],
@@ -24,19 +49,13 @@ pip install arcgis2geojson
 ...                                      [21.796875, 36.5625],
 ...                                      [41.8359375, 71.015625]]],
 ...                     'spatialReference': {'wkid': 4326}}}
->>> from arcgis2geojson import arcgis2geojson
 >>> output = arcgis2geojson(input)
->>> import pprint
->>> pp = pprint.PrettyPrinter(indent=4)
->>> pp.pprint(output)
-{   'geometry': {   'coordinates': [   [   [41.8359375, 71.015625],
-                                           [56.953125, 33.75],
-                                           [21.796875, 36.5625],
-                                           [41.8359375, 71.015625]]],
-                    'type': 'Polygon'},
-    'id': 123,
-    'properties': {'OBJECTID': 123},
-    'type': 'Feature'}
+
+>>> output
+{'type': 'Feature', 'geometry': {'type': 'Polygon', 'coordinates': [[[41.8359375, 71.015625], [21.796875, 36.5625], [56.953125, 33.75], [41.8359375, 71.015625]]]}, 'properties': {'OBJECTID': 123}, 'id': 123}
+
+>>> type(output)
+<class 'dict'>
 ```
 
 ### On the Console
