@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/chris48s/arcgis2geojson/badge.svg?branch=master)](https://coveralls.io/github/chris48s/arcgis2geojson?branch=master)
 ![PyPI Version](https://img.shields.io/pypi/v/arcgis2geojson.svg)
 ![License](https://img.shields.io/pypi/l/arcgis2geojson.svg)
-![Python Support](https://img.shields.io/pypi/pyversions/arcgis2geojson.svg)
+![Python Compatibility](https://img.shields.io/badge/dynamic/json?query=info.requires_python&label=python&url=https%3A%2F%2Fpypi.org%2Fpypi%2Farcgis2geojson%2Fjson)
 
 # arcgis2geojson.py
 A Python library for converting ArcGIS JSON to GeoJSON: A partial port of ESRI's [arcgis-to-geojson-utils](https://github.com/Esri/arcgis-to-geojson-utils/).
