@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/chris48s/arcgis2geojson.svg?branch=master)](https://travis-ci.org/chris48s/arcgis2geojson)
-[![Coverage Status](https://coveralls.io/repos/github/chris48s/arcgis2geojson/badge.svg?branch=master)](https://coveralls.io/github/chris48s/arcgis2geojson?branch=master)
+![Run tests](https://github.com/chris48s/arcgis2geojson/workflows/Run%20tests/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/chris48s/arcgis2geojson/branch/master/graph/badge.svg?token=uMbOfMCHqD)](https://codecov.io/gh/chris48s/arcgis2geojson)
 ![PyPI Version](https://img.shields.io/pypi/v/arcgis2geojson.svg)
 ![License](https://img.shields.io/pypi/l/arcgis2geojson.svg)
 ![Python Compatibility](https://img.shields.io/badge/dynamic/json?query=info.requires_python&label=python&url=https%3A%2F%2Fpypi.org%2Fpypi%2Farcgis2geojson%2Fjson)
