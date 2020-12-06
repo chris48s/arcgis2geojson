@@ -12,7 +12,7 @@ homepage = "https://github.com/chris48s/arcgis2geojson"
 python = "^3.4"
 
 [tool.poetry.dev-dependencies]
-coveralls = "^1.11.1"
+coverage = "^4.5.4"
 
 [build-system]
 requires = ["poetry>=1.0.2"]

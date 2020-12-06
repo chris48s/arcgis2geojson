@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .coverage
+coverage.xml
 arcgis2geojson.egg-info/
 build/
 dist/
