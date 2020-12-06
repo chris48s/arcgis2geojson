@@ -297,6 +297,10 @@ def main():
     )
     args = parser.parse_args()
 
+    if args.file.isatty():
+        parser.print_help()
+        return 0
+
     sys.stdout.write(arcgis2geojson(args.file.read(), idAttribute=args.id))
     return 0
 

@@ -2,8 +2,8 @@
 
 import io
 import json
-import sys
 import unittest
+from contextlib import redirect_stdout
 from copy import deepcopy
 from unittest.mock import patch
 
@@ -920,19 +920,21 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         ])
 
     def test_cli(self):
-        stdout = sys.stdout
-        sys.stdout = io.StringIO()
-
         input = u'{ "x": -66.796875, "y": 20.0390625, "spatialReference": { "wkid": 4326 } }'
-        stdin = sys.stdin
-        sys.stdin = io.StringIO(input)
+        with patch('sys.stdin', io.StringIO(input)):
+            with io.StringIO() as buf, redirect_stdout(buf):
+                self.assertEqual(0, main())
+                self.assertEqual(buf.getvalue().strip(), arcgis2geojson(input))
 
-        main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, arcgis2geojson(input))
+    def test_cli_stdin_is_tty(self):
+        with patch('sys.stdin.isatty', return_value=True):
+            with io.StringIO() as buf, redirect_stdout(buf):
+                self.assertEqual(0, main())
+                self.assertIn(
+                    'Convert ArcGIS JSON to GeoJSON',
+                    buf.getvalue().strip()
+                )
 
-        sys.stdout = stdout
-        sys.stdin = stdin
 
 if __name__ == '__main__':
     unittest.main()
