@@ -50,7 +50,7 @@ def ringIsClockwise(ringToTest):
         total += (pt2[0] - pt1[0]) * (pt2[1] + pt1[1])
         pt1 = pt2
 
-    return (total >= 0)
+    return total >= 0
 
 
 def vertexIntersectsVertex(a1, a2, b1, b2):
@@ -69,8 +69,8 @@ def vertexIntersectsVertex(a1, a2, b1, b2):
 
 
 def arrayIntersectsArray(a, b):
-    for i in range(0, len(a)-1):
-        for j in range(0, len(b)-1):
+    for i in range(0, len(a) - 1):
+        for j in range(0, len(b) - 1):
             if vertexIntersectsVertex(a[i], a[i + 1], b[j], b[j + 1]):
                 return True
 
@@ -80,15 +80,19 @@ def arrayIntersectsArray(a, b):
 def coordinatesContainPoint(coordinates, point):
 
     contains = False
-    l = len(coordinates)
+    len_ = len(coordinates)
     i = -1
-    j = l - 1
-    while ((i + 1) < l):
+    j = len_ - 1
+    while (i + 1) < len_:
         i = i + 1
         ci = coordinates[i]
         cj = coordinates[j]
-        if ((ci[1] <= point[1] and point[1] < cj[1]) or (cj[1] <= point[1] and point[1] < ci[1])) and\
-           (point[0] < (cj[0] - ci[0]) * (point[1] - ci[1]) / (cj[1] - ci[1]) + ci[0]):
+        if (
+            (ci[1] <= point[1] and point[1] < cj[1])
+            or (cj[1] <= point[1] and point[1] < ci[1])
+        ) and (
+            point[0] < (cj[0] - ci[0]) * (point[1] - ci[1]) / (cj[1] - ci[1]) + ci[0]
+        ):
             contains = not contains
         j = i
     return contains
@@ -123,9 +127,13 @@ def convertRingsToGeoJSON(rings):
         # is this ring an outer ring? is it clockwise?
         if ringIsClockwise(ring):
             polygon = [ring[::-1]]
-            outerRings.append(polygon)  # wind outer rings counterclockwise for RFC 7946 compliance
+            outerRings.append(
+                polygon
+            )  # wind outer rings counterclockwise for RFC 7946 compliance
         else:
-            holes.append(ring[::-1])  # wind inner rings clockwise for RFC 7946 compliance
+            holes.append(
+                ring[::-1]
+            )  # wind inner rings clockwise for RFC 7946 compliance
 
     uncontainedHoles = []
 
@@ -137,14 +145,14 @@ def convertRingsToGeoJSON(rings):
         # loop over all outer rings and see if they contain our hole.
         contained = False
         x = len(outerRings) - 1
-        while (x >= 0):
+        while x >= 0:
             outerRing = outerRings[x][0]
             if coordinatesContainCoordinates(outerRing, hole):
                 # the hole is contained push it into our polygon
                 outerRings[x].append(hole)
                 contained = True
                 break
-            x = x-1
+            x = x - 1
 
         # ring is not contained in any outer ring
         # sometimes this happens https://github.com/Esri/esri-leaflet/issues/320
@@ -159,38 +167,33 @@ def convertRingsToGeoJSON(rings):
         # loop over all outer rings and see if any intersect our hole.
         intersects = False
         x = len(outerRings) - 1
-        while (x >= 0):
+        while x >= 0:
             outerRing = outerRings[x][0]
             if arrayIntersectsArray(outerRing, hole):
                 # the hole is contained push it into our polygon
                 outerRings[x].append(hole)
                 intersects = True
                 break
-            x = x-1
+            x = x - 1
 
         if not intersects:
             outerRings.append([hole[::-1]])
 
     if len(outerRings) == 1:
-        return {
-            'type': 'Polygon',
-            'coordinates': outerRings[0]
-        }
+        return {"type": "Polygon", "coordinates": outerRings[0]}
     else:
-        return {
-            'type': 'MultiPolygon',
-            'coordinates': outerRings
-        }
+        return {"type": "MultiPolygon", "coordinates": outerRings}
 
 
 def getId(attributes, idAttribute=None):
-    keys = [idAttribute, 'OBJECTID', 'FID'] if idAttribute else ['OBJECTID', 'FID']
+    keys = [idAttribute, "OBJECTID", "FID"] if idAttribute else ["OBJECTID", "FID"]
     for key in keys:
         if key in attributes and (
-                isinstance(attributes[key], numbers.Number) or
-                isinstance(attributes[key], str)):
+            isinstance(attributes[key], numbers.Number)
+            or isinstance(attributes[key], str)
+        ):
             return attributes[key]
-    raise KeyError('No valid id attribute found')
+    raise KeyError("No valid id attribute found")
 
 
 def arcgis2geojson(arcgis, idAttribute=None):
@@ -207,93 +210,106 @@ def convert(arcgis, idAttribute=None):
 
     geojson = {}
 
-    if 'features' in arcgis and arcgis['features']:
-        geojson['type'] = 'FeatureCollection'
-        geojson['features'] = []
-        for feature in arcgis['features']:
-            geojson['features'].append(convert(feature, idAttribute))
+    if "features" in arcgis and arcgis["features"]:
+        geojson["type"] = "FeatureCollection"
+        geojson["features"] = []
+        for feature in arcgis["features"]:
+            geojson["features"].append(convert(feature, idAttribute))
 
-    if 'x' in arcgis and isinstance(arcgis['x'], numbers.Number) and\
-            'y' in arcgis and isinstance(arcgis['y'], numbers.Number):
-        geojson['type'] = 'Point'
-        geojson['coordinates'] = [arcgis['x'], arcgis['y']]
-        if 'z' in arcgis and isinstance(arcgis['z'], numbers.Number):
-            geojson['coordinates'].append(arcgis['z'])
+    if (
+        "x" in arcgis
+        and isinstance(arcgis["x"], numbers.Number)
+        and "y" in arcgis
+        and isinstance(arcgis["y"], numbers.Number)
+    ):
+        geojson["type"] = "Point"
+        geojson["coordinates"] = [arcgis["x"], arcgis["y"]]
+        if "z" in arcgis and isinstance(arcgis["z"], numbers.Number):
+            geojson["coordinates"].append(arcgis["z"])
 
-    if 'points' in arcgis:
-        geojson['type'] = 'MultiPoint'
-        geojson['coordinates'] = arcgis['points']
+    if "points" in arcgis:
+        geojson["type"] = "MultiPoint"
+        geojson["coordinates"] = arcgis["points"]
 
-    if 'paths' in arcgis:
-        if len(arcgis['paths']) == 1:
-            geojson['type'] = 'LineString'
-            geojson['coordinates'] = arcgis['paths'][0]
+    if "paths" in arcgis:
+        if len(arcgis["paths"]) == 1:
+            geojson["type"] = "LineString"
+            geojson["coordinates"] = arcgis["paths"][0]
         else:
-            geojson['type'] = 'MultiLineString'
-            geojson['coordinates'] = arcgis['paths']
+            geojson["type"] = "MultiLineString"
+            geojson["coordinates"] = arcgis["paths"]
 
-    if 'rings' in arcgis:
-        geojson = convertRingsToGeoJSON(arcgis['rings'])
+    if "rings" in arcgis:
+        geojson = convertRingsToGeoJSON(arcgis["rings"])
 
-    if 'xmin' in arcgis and isinstance(arcgis['xmin'], numbers.Number) and\
-            'ymin' in arcgis and isinstance(arcgis['ymin'], numbers.Number) and\
-            'xmax' in arcgis and isinstance(arcgis['xmax'], numbers.Number) and\
-            'ymax' in arcgis and isinstance(arcgis['ymax'], numbers.Number):
-        geojson['type'] = 'Polygon'
-        geojson['coordinates'] = [[
-            [arcgis['xmax'], arcgis['ymax']],
-            [arcgis['xmin'], arcgis['ymax']],
-            [arcgis['xmin'], arcgis['ymin']],
-            [arcgis['xmax'], arcgis['ymin']],
-            [arcgis['xmax'], arcgis['ymax']]
-        ]]
+    if (
+        "xmin" in arcgis
+        and isinstance(arcgis["xmin"], numbers.Number)
+        and "ymin" in arcgis
+        and isinstance(arcgis["ymin"], numbers.Number)
+        and "xmax" in arcgis
+        and isinstance(arcgis["xmax"], numbers.Number)
+        and "ymax" in arcgis
+        and isinstance(arcgis["ymax"], numbers.Number)
+    ):
+        geojson["type"] = "Polygon"
+        geojson["coordinates"] = [
+            [
+                [arcgis["xmax"], arcgis["ymax"]],
+                [arcgis["xmin"], arcgis["ymax"]],
+                [arcgis["xmin"], arcgis["ymin"]],
+                [arcgis["xmax"], arcgis["ymin"]],
+                [arcgis["xmax"], arcgis["ymax"]],
+            ]
+        ]
 
-    if 'geometry' in arcgis or 'attributes' in arcgis:
-        geojson['type'] = 'Feature'
-        if 'geometry' in arcgis:
-            geojson['geometry'] = convert(arcgis['geometry'])
+    if "geometry" in arcgis or "attributes" in arcgis:
+        geojson["type"] = "Feature"
+        if "geometry" in arcgis:
+            geojson["geometry"] = convert(arcgis["geometry"])
         else:
-            geojson['geometry'] = None
+            geojson["geometry"] = None
 
-        if 'attributes' in arcgis:
-            geojson['properties'] = arcgis['attributes']
+        if "attributes" in arcgis:
+            geojson["properties"] = arcgis["attributes"]
             try:
-                geojson['id'] = getId(arcgis['attributes'], idAttribute)
+                geojson["id"] = getId(arcgis["attributes"], idAttribute)
             except KeyError:
                 # don't set an id
                 pass
         else:
-            geojson['properties'] = None
+            geojson["properties"] = None
 
-    if 'geometry' in geojson and not(geojson['geometry']):
-        geojson['geometry'] = None
+    if "geometry" in geojson and not (geojson["geometry"]):
+        geojson["geometry"] = None
 
-    if 'spatialReference' in arcgis and\
-            'wkid' in arcgis['spatialReference'] and\
-            arcgis['spatialReference']['wkid'] != 4326:
+    if (
+        "spatialReference" in arcgis
+        and "wkid" in arcgis["spatialReference"]
+        and arcgis["spatialReference"]["wkid"] != 4326
+    ):
         logging.warning(
-            'Object converted in non-standard crs - ' +\
-            str(arcgis['spatialReference'])
+            "Object converted in non-standard crs - " + str(arcgis["spatialReference"])
         )
 
     return geojson
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert ArcGIS JSON to GeoJSON')
+    parser = argparse.ArgumentParser(description="Convert ArcGIS JSON to GeoJSON")
     parser.add_argument(
-        'file',
-        nargs='?',
-        help='Input file, if empty stdin is used',
-        type=argparse.FileType('r'),
-        default=sys.stdin
+        "file",
+        nargs="?",
+        help="Input file, if empty stdin is used",
+        type=argparse.FileType("r"),
+        default=sys.stdin,
     )
     parser.add_argument(
-        '--id',
-        action='store',
-        help='Attribute to use as feature ID',
+        "--id",
+        action="store",
+        help="Attribute to use as feature ID",
         required=False,
-        default=None
+        default=None,
     )
     args = parser.parse_args()
 
@@ -305,5 +321,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

@@ -3,6 +3,7 @@
 ![PyPI Version](https://img.shields.io/pypi/v/arcgis2geojson.svg)
 ![License](https://img.shields.io/pypi/l/arcgis2geojson.svg)
 ![Python Compatibility](https://img.shields.io/badge/dynamic/json?query=info.requires_python&label=python&url=https%3A%2F%2Fpypi.org%2Fpypi%2Farcgis2geojson%2Fjson)
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 # arcgis2geojson.py
 A Python library for converting ArcGIS JSON to GeoJSON: A partial port of ESRI's [arcgis-to-geojson-utils](https://github.com/Esri/arcgis-to-geojson-utils/).
