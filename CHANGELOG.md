@@ -1,5 +1,9 @@
 # Changelog
 
+## 📦 [3.0.1](https://pypi.python.org/pypi/arcgis2geojson/3.0.1) - 2021-11-07
+
+* Log a warning if geometry can not be converted
+
 ## 📦 [3.0.0](https://pypi.python.org/pypi/arcgis2geojson/3.0.0) - 2021-10-17
 
 * Dropped testing on python < 3.7

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arcgis2geojson"
-version = "3.0.0"
+version = "3.0.1"
 description = "A Python library for converting ArcGIS JSON to GeoJSON"
 authors = ["chris48s"]
 license = "MIT"
