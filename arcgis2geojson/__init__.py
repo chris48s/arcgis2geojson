@@ -292,6 +292,20 @@ def convert(arcgis, idAttribute=None):
             "Object converted in non-standard crs - " + str(arcgis["spatialReference"])
         )
 
+    trueCurveElements = {
+        "curveRings": "Curved Polygon",
+        "curvePaths": "Curved Polyline",
+        "a": "Elliptic Arc",
+        "b": "Bézier Curve",
+        "c": "Circular Arc",
+    }
+    for k, v in trueCurveElements.items():
+        if k in arcgis:
+            logging.warning(
+                f"Element of type '{k}' ({v}) can not be convered to GeoJSON. Converting to null geometry"
+            )
+            geojson["geometry"] = None
+
     return geojson
 
 
