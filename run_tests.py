@@ -782,7 +782,9 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         )
 
     def test_cli(self):
-        input = u'{ "x": -66.796875, "y": 20.0390625, "spatialReference": { "wkid": 4326 } }'
+        input = (
+            '{ "x": -66.796875, "y": 20.0390625, "spatialReference": { "wkid": 4326 } }'
+        )
         with patch("sys.stdin", io.StringIO(input)):
             with io.StringIO() as buf, redirect_stdout(buf):
                 self.assertEqual(0, main())
