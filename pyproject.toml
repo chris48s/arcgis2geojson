@@ -15,7 +15,7 @@ python = "^3.7"
 coverage = "^6.3"
 isort = "^5.10"
 flake8 = "^4.0.1"
-black = "==22.1.0"
+black = "==22.3.0"
 
 [build-system]
 requires = ["poetry>=1.0.2"]
