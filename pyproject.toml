@@ -12,7 +12,7 @@ homepage = "https://github.com/chris48s/arcgis2geojson"
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-coverage = "^6.3"
+coverage = "^6.4"
 isort = "^5.10"
 flake8 = "^4.0.1"
 black = "==22.3.0"
