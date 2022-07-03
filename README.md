@@ -1,4 +1,4 @@
-![Run tests](https://github.com/chris48s/arcgis2geojson/workflows/Run%20tests/badge.svg?branch=master)
+[![Run tests](https://github.com/chris48s/arcgis2geojson/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/chris48s/arcgis2geojson/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/chris48s/arcgis2geojson/branch/master/graph/badge.svg?token=uMbOfMCHqD)](https://codecov.io/gh/chris48s/arcgis2geojson)
 ![PyPI Version](https://img.shields.io/pypi/v/arcgis2geojson.svg)
 ![License](https://img.shields.io/pypi/l/arcgis2geojson.svg)
