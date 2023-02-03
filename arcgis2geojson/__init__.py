@@ -78,7 +78,6 @@ def arrayIntersectsArray(a, b):
 
 
 def coordinatesContainPoint(coordinates, point):
-
     contains = False
     len_ = len(coordinates)
     i = -1
