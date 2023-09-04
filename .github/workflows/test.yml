@@ -15,3 +15,4 @@ jobs:
         uses: chris48s/python-package-shared@main
         with:
           python-version: ${{ matrix.python-version }}
+          pre-install: poetry
