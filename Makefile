@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: help format install lint test release
+.PHONY: help format install lint test build release
 
 help:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
@@ -19,6 +19,9 @@ lint:
 test:
 	poetry run coverage run --source=arcgis2geojson ./run_tests.py
 	poetry run coverage xml
+
+build:
+	poetry build
 
 release:
 	# usage: `make release version=0.0.0`
