@@ -9,7 +9,7 @@ repository = "https://github.com/chris48s/arcgis2geojson"
 homepage = "https://github.com/chris48s/arcgis2geojson"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.7"
 
 [tool.poetry.dev-dependencies]
 coverage = "^7.2"
