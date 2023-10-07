@@ -14,7 +14,7 @@ python = ">=3.7"
 [tool.poetry.dev-dependencies]
 coverage = "^7.2"
 isort = "^5.11"
-flake8 = "^5.0.4"
+flake8 = { version = "^6.1.0", python = "^3.8.1" }
 black = "==23.3.0"
 
 [build-system]
