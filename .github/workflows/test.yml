@@ -16,3 +16,4 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           pre-install: poetry
+          run-lint: ${{ matrix.python-version != '3.7' }}
