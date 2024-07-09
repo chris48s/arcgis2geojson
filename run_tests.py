@@ -715,25 +715,25 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         output = arcgis2geojson(input)
         self.assertTrue("id" not in output)
 
-    @patch("arcgis2geojson.logging")
-    def test_warning_if_crs_not_4326(self, mock_logging):
+    @patch("arcgis2geojson.logger")
+    def test_warning_if_crs_not_4326(self, mock_logger):
         input = {"x": 392917.31, "y": 298521.34, "spatialReference": {"wkid": 27700}}
 
         output = arcgis2geojson(input)
 
-        mock_logging.warning.assert_called_with(
+        mock_logger.warning.assert_called_with(
             "Object converted in non-standard crs - {'wkid': 27700}"
         )
         self.assertTrue("crs" not in output)
         self.assertEqual(output["coordinates"], [392917.31, 298521.34])
 
-    @patch("arcgis2geojson.logging")
-    def test_warning_if_true_curve_element(self, mock_logging):
+    @patch("arcgis2geojson.logger")
+    def test_warning_if_true_curve_element(self, mock_logger):
         input = {"curvePaths": [[[0, 0], {"c": [[3, 3], [1, 4]]}]]}
 
         output = arcgis2geojson(input)
 
-        mock_logging.warning.assert_called_with(
+        mock_logger.warning.assert_called_with(
             "Element of type 'curvePaths' (Curved Polyline) can not be convered to GeoJSON. Converting to null geometry"
         )
         self.assertEqual(output["geometry"], None)

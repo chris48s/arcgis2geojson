@@ -14,6 +14,8 @@ import logging
 import numbers
 import sys
 
+logger = logging.getLogger(__name__)
+
 
 def pointsEqual(a, b):
     """
@@ -287,7 +289,7 @@ def convert(arcgis, idAttribute=None):
         and "wkid" in arcgis["spatialReference"]
         and arcgis["spatialReference"]["wkid"] != 4326
     ):
-        logging.warning(
+        logger.warning(
             "Object converted in non-standard crs - " + str(arcgis["spatialReference"])
         )
 
@@ -300,7 +302,7 @@ def convert(arcgis, idAttribute=None):
     }
     for k, v in trueCurveElements.items():
         if k in arcgis:
-            logging.warning(
+            logger.warning(
                 f"Element of type '{k}' ({v}) can not be convered to GeoJSON. Converting to null geometry"
             )
             geojson["geometry"] = None
