@@ -5,9 +5,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.ref_type == 'tag'
-    permissions:
-      id-token: write  # required for trusted publishing
-    environment: publish
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,7 +15,23 @@ jobs:
           python-version: '3.8'
           pre-install: poetry
 
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event.ref_type == 'tag'
+    permissions:
+      contents: none
+      id-token: write # required for trusted publishing
+    environment: publish
+    steps:
+      - uses: actions/download-artifact@v3
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          packages-dir: artifact/
           print-hash: true
