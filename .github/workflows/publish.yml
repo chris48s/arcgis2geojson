@@ -15,7 +15,7 @@ jobs:
           python-version: '3.8'
           pre-install: poetry
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./dist
 
