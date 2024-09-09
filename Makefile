@@ -18,6 +18,7 @@ lint:
 
 test:
 	poetry run coverage run --source=arcgis2geojson ./run_tests.py
+	poetry run coverage report
 	poetry run coverage xml
 
 build:
