@@ -17,3 +17,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
           pre-install: poetry
           run-lint: ${{ matrix.python-version != '3.7' }}
+
+  write-badges:
+    needs: build
+    uses: chris48s/python-package-shared/.github/workflows/write-badges-poetry.yml@main
+    if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/master'}}
+    with:
+      build_result: ${{ needs.build.result }}
