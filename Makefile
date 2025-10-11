@@ -1,8 +1,12 @@
 SHELL := /bin/bash
-.PHONY: help format install lint test build release
+.PHONY: help env format install lint test build release
 
 help:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
+
+# usage: source $(make env)
+env:
+	@poetry env activate | cut -d' ' -f2
 
 format:
 	poetry run isort .

@@ -70,6 +70,16 @@ $ curl "https://myserver.com/arcgis.json" | arcgis2geojson
 ```
 
 
+## Versioning
+
+arcgis2geojson follows [semantic versioning](https://semver.org/). For this project, the "API" also includes:
+
+- CLI flags and options
+- CLI exit codes
+
+From version 3 onwards, arcgis2geojson will drop compatibility with unsupported python versions without incrementing the major version. This is in line with common practice in the python community.
+
+
 ## Licensing
 
 arcgis2geojson is a derivative work of ESRI's [arcgis-to-geojson-utils](https://github.com/Esri/arcgis-to-geojson-utils/). Original code is Copyright 2015 by Esri and was licensed under [the Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
