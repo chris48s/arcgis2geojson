@@ -19,7 +19,7 @@ jobs:
 
   write-badges:
     needs: build
-    uses: chris48s/python-package-shared/.github/workflows/write-badges-poetry.yml@main
+    uses: chris48s/python-package-shared/.github/workflows/write-badges-poetry2.yml@main
     if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/master'}}
     with:
       build_result: ${{ needs.build.result }}
