@@ -9,10 +9,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Get python versions
+        uses: chris48s/satisfying-python@main
+        id: python-versions
+
       - name: Build, Test, Lint
         uses: chris48s/python-package-shared@main
         with:
-          python-version: '3.8'
+          python-version: '${{ steps.python-versions.outputs.min }}'
           pre-install: poetry
 
       - uses: actions/upload-artifact@v4
