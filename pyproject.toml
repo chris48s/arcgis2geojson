@@ -1,6 +1,6 @@
 [project]
 name = "arcgis2geojson"
-version = "3.0.3"
+version = "3.1.0"
 description = "A Python library for converting ArcGIS JSON to GeoJSON"
 authors = [{name = "chris48s"}]
 license = "MIT"

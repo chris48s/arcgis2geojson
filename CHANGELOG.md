@@ -1,5 +1,10 @@
 # Changelog
 
+## 📦 [3.1.0](https://pypi.python.org/pypi/arcgis2geojson/3.1.0) - 2025-10-11
+
+* Dropped testing on python < 3.10
+* Tested on python 3.13, 3.14
+
 ## 📦 [3.0.3](https://pypi.python.org/pypi/arcgis2geojson/3.0.3) - 2024-07-09
 
 * Don't use the root logger
