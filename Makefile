@@ -4,7 +4,7 @@ SHELL := /bin/bash
 help:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
 
-# usage: source $(make env)
+# usage: `source $(make env)`
 env:
 	@poetry env activate | cut -d' ' -f2
 
@@ -28,8 +28,8 @@ test:
 build:
 	poetry build
 
+# usage: `make release version=0.0.0`
 release:
-	# usage: `make release version=0.0.0`
 	make test
 	@echo ""
 	make lint
