@@ -14,6 +14,8 @@ import logging
 import numbers
 import sys
 
+from .__version__ import __version__
+
 logger = logging.getLogger(__name__)
 
 
@@ -325,6 +327,9 @@ def main():
         help="Attribute to use as feature ID",
         required=False,
         default=None,
+    )
+    parser.add_argument(
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
     args = parser.parse_args()
 
