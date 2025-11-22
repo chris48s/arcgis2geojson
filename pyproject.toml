@@ -8,10 +8,10 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 [tool.poetry.group.dev.dependencies]
-coverage = "^7.12"
-isort = "^7.0"
-flake8 = "^7.3.0"
-black = "==25.11.0"
+coverage = "7.12"
+isort = "7.0.0"
+flake8 = "7.3.0"
+black = "25.11.0"
 
 [project.urls]
 Home = "https://github.com/chris48s/arcgis2geojson"
