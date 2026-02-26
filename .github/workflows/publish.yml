@@ -19,7 +19,7 @@ jobs:
           python-version: '${{ steps.python-versions.outputs.min }}'
           pre-install: poetry
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           path: ./dist
 
