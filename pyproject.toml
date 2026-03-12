@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 coverage = "7.13.4"
 isort = "8.0.1"
 flake8 = "7.3.0"
-black = "26.3.0"
+black = "26.3.1"
 
 [project.urls]
 Home = "https://github.com/chris48s/arcgis2geojson"
