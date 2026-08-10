@@ -8,7 +8,29 @@
 # arcgis2geojson.py
 A Python library for converting ArcGIS JSON to GeoJSON: A partial port of ESRI's [arcgis-to-geojson-utils](https://github.com/Esri/arcgis-to-geojson-utils/).
 
-## Installation
+## Run with UV in console
+Install `uv` from [Astral](https://[Astral.sh](https://docs.astral.sh/uv/))
+```sh
+# Ephemeral one-shot run without installing:
+uvx arcgis2geojson ...
+```
+```
+# Install and make available in PATH:
+uv tool install arcgis2geojson
+arcgis2geojson ...
+```
+
+### Examples
+
+```sh
+# convert ArcGIS json file to GeoJOSN file
+$ arcgis2geojson arcgis.json > converted.geojson
+
+# fetch ArcGIS json from the web and convert to GeoJSON
+$ curl "https://myserver.com/arcgis.json" | arcgis2geojson
+```
+
+## Pip Installation
 ```
 pip install arcgis2geojson
 ```
@@ -57,16 +79,6 @@ Convert a python dict to a python dict
 
 >>> type(output)
 <class 'dict'>
-```
-
-### On the Console
-
-```sh
-# convert ArcGIS json file to GeoJOSN file
-$ arcgis2geojson arcgis.json > geo.json
-
-# fetch ArcGIS json from the web and convert to GeoJSON
-$ curl "https://myserver.com/arcgis.json" | arcgis2geojson
 ```
 
 
