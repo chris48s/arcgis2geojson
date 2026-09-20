@@ -268,7 +268,7 @@ def convert(arcgis, idAttribute=None):
 
     if "geometry" in arcgis or "attributes" in arcgis:
         geojson["type"] = "Feature"
-        if "geometry" in arcgis:
+        if arcgis.get("geometry") is not None:
             geojson["geometry"] = convert(arcgis["geometry"])
         else:
             geojson["geometry"] = None

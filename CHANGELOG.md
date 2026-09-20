@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Preserve null feature geometries instead of raising an exception during conversion
+
 ## 📦 [3.1.1](https://pypi.python.org/pypi/arcgis2geojson/3.1.1) - 2025-10-22
 
 * Fix build build-backend declaration
