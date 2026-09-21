@@ -673,6 +673,40 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         self.assertEqual(output["geometry"], None)
         self.assertEqual(output["properties"]["foo"], "bar")
 
+    def test_parse_arcgis_feature_with_null_geometry(self):
+        input = {"geometry": None, "attributes": {"OBJECTID": 0, "name": "Unlocated"}}
+        expected = {
+            "type": "Feature",
+            "geometry": None,
+            "properties": {"OBJECTID": 0, "name": "Unlocated"},
+            "id": 0,
+        }
+        self.assertEqual(arcgis2geojson(input), expected)
+        self.assertEqual(json.loads(arcgis2geojson(json.dumps(input))), expected)
+
+    def test_parse_arcgis_feature_collection_with_null_geometry(self):
+        input = {
+            "features": [
+                {"geometry": None},
+                {"geometry": {"x": 0, "y": 1}, "attributes": {"FID": 1}},
+                {"geometry": None, "attributes": {}},
+            ]
+        }
+        expected = {
+            "type": "FeatureCollection",
+            "features": [
+                {"type": "Feature", "geometry": None, "properties": None},
+                {
+                    "type": "Feature",
+                    "geometry": {"type": "Point", "coordinates": [0, 1]},
+                    "properties": {"FID": 1},
+                    "id": 1,
+                },
+                {"type": "Feature", "geometry": None, "properties": {}},
+            ],
+        }
+        self.assertEqual(arcgis2geojson(input), expected)
+
     def test_custom_id_field(self):
         input = {
             "x": -66.796875,
@@ -789,6 +823,22 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
             with io.StringIO() as buf, redirect_stdout(buf):
                 self.assertEqual(0, main())
                 self.assertEqual(buf.getvalue().strip(), arcgis2geojson(input))
+
+    def test_cli_null_geometry(self):
+        input = '{"geometry": null, "attributes": {"record_id": "unlocated"}}'
+        with patch("sys.argv", ["arcgis2geojson", "--id", "record_id"]):
+            with patch("sys.stdin", io.StringIO(input)):
+                with io.StringIO() as buf, redirect_stdout(buf):
+                    self.assertEqual(0, main())
+                    self.assertEqual(
+                        json.loads(buf.getvalue()),
+                        {
+                            "type": "Feature",
+                            "geometry": None,
+                            "properties": {"record_id": "unlocated"},
+                            "id": "unlocated",
+                        },
+                    )
 
     def test_cli_stdin_is_tty(self):
         with patch("sys.stdin.isatty", return_value=True):
