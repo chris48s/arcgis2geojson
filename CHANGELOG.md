@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 📦 [3.1.2](https://pypi.python.org/pypi/arcgis2geojson/3.1.2) - 2026-09-21
 
 * Preserve null feature geometries instead of raising an exception during conversion
 
