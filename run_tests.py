@@ -768,7 +768,7 @@ class ArcGisToGeoJsonTests(unittest.TestCase):
         output = arcgis2geojson(input)
 
         mock_logger.warning.assert_called_with(
-            "Element of type 'curvePaths' (Curved Polyline) can not be convered to GeoJSON. Converting to null geometry"
+            "Element of type 'curvePaths' (Curved Polyline) can not be converted to GeoJSON. Converting to null geometry"
         )
         self.assertEqual(output["geometry"], None)
 

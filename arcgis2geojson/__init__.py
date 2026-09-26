@@ -305,7 +305,7 @@ def convert(arcgis, idAttribute=None):
     for k, v in trueCurveElements.items():
         if k in arcgis:
             logger.warning(
-                f"Element of type '{k}' ({v}) can not be convered to GeoJSON. Converting to null geometry"
+                f"Element of type '{k}' ({v}) can not be converted to GeoJSON. Converting to null geometry"
             )
             geojson["geometry"] = None
 
