@@ -1,5 +1,9 @@
 # Changelog
 
+## 📦 [3.1.3](https://pypi.python.org/pypi/arcgis2geojson/3.1.3) - 2026-09-26
+
+* Fix typo in true curve warning
+
 ## 📦 [3.1.2](https://pypi.python.org/pypi/arcgis2geojson/3.1.2) - 2026-09-21
 
 * Preserve null feature geometries instead of raising an exception during conversion
